@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+	<head
+		<meta name="author" content="Mateusz Oleksiak, mat_ole@interia.pl">
+		<meta name="copyright"content="Mateusz Oleksiak">
+		<meta name="language" content="EN">
+		<meta name="description" content="Online point counter (scoreboard)">
+		<meta name="keywords" content="licznik,licznik punktow,tablica wynikow,counter,points,scoreboard,calculator">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<title>The Great point counter by Mateusz</title>
+		
+		<!--Get screen size to enable dynamic positioning and styling of elements-->
+		<script>
+			var width=0;
+			var height=0;
+			width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+			<!-- console.log("width="+width+", height="+height); -->
+		</script>
+		
+		<!--Counter mechanics-->
+		<script>
+			var point_limit = 99;
+			var point_limit_warning_text = "Maximum point limit is "+point_limit+"!";
+			var point_limit_warning_box_width = (width*500)/1280;
+			var point_limit_warning_box_height = (height*150)/685;
+			var posx = (width/2)-(point_limit_warning_box_width/2);
+			var posy = (height/2)-(point_limit_warning_box_height/2);
+			var point_limit_warning_box = "<center><div style='width:"+point_limit_warning_box_width+"px; height:"+point_limit_warning_box_height+"px; position:fixed; top:"+posy+"px; left:"+posx+"px; border-radius:25px; border:2px solid red; box-shadow:0px 0px 30px rgba(255, 0, 0, 1), 0px 0px 30px rgba(255, 0, 0, 1); padding:0px; background-color:rgba(255, 0, 0, 0.9); color:white; text-shadow: 0 0 10px white'><table style='width:100%; height:100%;'><td style='text-align:center; vertical-align:middle;'>"+point_limit_warning_text+"</td></table></div></center>";
+
+			var player1_points = 0;
+			var player2_points = 0;
+			
+			function add_point(player) {
+				if(player==1) {
+					if(player1_points == point_limit) {
+						document.getElementById("warning").innerHTML = point_limit_warning_box;
+					}
+					else {
+						player1_points += 1;
+						var images_string="";
+						var player1_points_string = player1_points.toString();
+						for (i = 0; i < player1_points_string.length; i++) {
+							var number = [];
+							var image = [];
+							number[i] = player1_points_string.charAt(i);
+							image[i] = "<img src='" + number[i] + ".png'>";
+							images_string += image[i];
+							document.getElementById("pointsplayer1").innerHTML = images_string;
+						}
+					}
+				}
+				else{
+					if(player2_points == point_limit) {
+						document.getElementById("warning").innerHTML = point_limit_warning_box;
+					}
+					else {
+						player2_points += 1;
+						var images_string="";
+						var player2_points_string = player2_points.toString();
+						for (i = 0; i < player2_points_string.length; i++) {
+							var number = [];
+							var image = [];
+							number[i] = player2_points_string.charAt(i);
+							image[i] = "<img src='" + number[i] + ".png'>";
+							images_string += image[i];
+							document.getElementById("pointsplayer2").innerHTML = images_string;
+						}
+					}
+				}
+			}
+			
+			function remove_point(player) {
+				if(player==1) {
+					if(player1_points == 0) {
+						player1_points = player1_points;
+					}
+					else {
+						player1_points -= 1;
+						var images_string="";
+						var player1_points_string = player1_points.toString();
+						for (i = 0; i < player1_points_string.length; i++) {
+							var number = [];
+							var image = [];
+							number[i] = player1_points_string.charAt(i);
+							image[i] = "<img src='" + number[i] + ".png'>";
+							images_string += image[i];
+							document.getElementById("pointsplayer1").innerHTML = images_string;
+						}
+					}
+				}
+				else {
+					if(player2_points == 0) {
+						player2_points = player2_points;
+					}
+					else {
+						player2_points -= 1;
+						var images_string="";
+						var player2_points_string = player2_points.toString();
+						for (i = 0; i < player2_points_string.length; i++) {
+							var number = [];
+							var image = [];
+							number[i] = player2_points_string.charAt(i);
+							image[i] = "<img src='" + number[i] + ".png'>";
+							images_string += image[i];
+							document.getElementById("pointsplayer2").innerHTML = images_string;
+						}
+					}
+				}
+			}
+			
+			function reset_points(player) {
+				if(player==1) {
+					player1_points = 0;
+					document.getElementById("pointsplayer1").innerHTML = "<img src='0.png'>";
+					document.getElementById("warning").innerHTML = "";
+				}
+				else {
+					player2_points = 0;
+					document.getElementById("pointsplayer2").innerHTML = "<img src='0.png'>";
+					document.getElementById("warning").innerHTML = "";
+				}
+			}
+		</script>
+
+		<style>
+			body {
+				background-image: url('background.jpeg');
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
+				background-position: center center;
+				background-color: black;
+				margin: 5% 0 5% 0;
+				padding: 0;
+			}
+			
+			#parent {
+				position: relative;
+				width: 60%;
+				border: 0px solid green;
+				position: relative;
+				margin: auto;
+			}
+			
+			#player1 {
+				position: absolute;
+				text-align: center;
+				left: 0;
+				width: 40%;
+				border: 2px solid red;
+				box-shadow: 0px 0px 30px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255, 255, 255, 1);
+				padding: 10px; 
+				background: linear-gradient(rgba(255,255,255,1), rgba(0,0,0,0));
+			}
+			
+			#player2 {
+				position: absolute;
+				text-align: center;
+				right: 0;
+				width: 40%;
+				border-radius: 25px;
+				border: 2px solid blue;
+				box-shadow: 0px 0px 30px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255, 255, 255, 1);
+				padding: 10px; 
+				background: linear-gradient(rgba(255,255,255,1), rgba(0,0,0,0));
+			}
+			
+			h1 {
+				display: block;
+				text-align: center;
+				font-family: Sans-serif;
+				text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
+			}
+			
+			h1.warning {
+				position: absolute;
+				text-align: center;
+				width: 100%;
+				color: red;
+				font-family: Sans-serif;
+				text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
+			}
+
+			.button {
+				border: 0;
+				background: rgba(255, 255, 255, 0.5);
+				margin: 10px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-weight: bold;
+				border-radius: 12px;
+			}
+			
+			img {
+				width: 30%;
+				height: auto;
+				margin: 10px;
+			}
+		</style>
+		
+	</head>
+	
+	<body>
+		<div id="parent">
+		<h1>The Great point counter by Mateusz</h1>
+			<div id="player1">
+				<p id="pointsplayer1"><img src='0.png'></p>
+				<button class="button" onclick="add_point(1)">+1</button><button class="button" onclick="remove_point(1)">-1</button>
+				<p><button class="button" onclick="reset_points(1)">Reset</button></p>
+			</div>
+			<div id="player2">
+				<p id="pointsplayer2"><img src='0.png'></p>
+				<button class="button" onclick="add_point(2)">+1</button><button class="button" onclick="remove_point(2)">-1</button>
+				<p><button class="button" onclick="reset_points(2)">Reset</button></p>
+			</div>
+		</div>
+		<h1 class="warning" id="warning"></h1>
+		<h1 class="warning" id="warning_small" style="color:white; text-shadow:0 0 10px white;"><center><p id="max_points">xxx</p></center></h1>
+	</body>
+	
+	<!--Dynamic positioning and styling of elements-->
+	<script>
+		document.getElementById("max_points").innerHTML = point_limit_warning_text;
+	
+		var div_player_radius = (height*25)/685;
+		var div_player_radius_style = "border-radius:"+div_player_radius+"px;";
+		document.getElementById("player1").style.cssText+=div_player_radius_style;
+		document.getElementById("player2").style.cssText+=div_player_radius_style;
+		var div_player_height = (height*430)/685;
+		var div_player_height_style = "height:"+div_player_height+"px;";
+		document.getElementById("player1").style.cssText+=div_player_height_style;
+		document.getElementById("player2").style.cssText+=div_player_height_style;
+		var div_player_top = (height*90)/685;
+		var div_player_top_style = "top:"+div_player_top+"px;";
+		document.getElementById("player1").style.cssText+=div_player_top_style;
+		document.getElementById("player2").style.cssText+=div_player_top_style;
+		
+		var button_padding_1 = (height*15)/685;
+		var button_padding_2 = (width*30)/1280;
+		var button_padding_style = "padding:"+button_padding_1+"px "+button_padding_2+"px;";
+		function change_style_button_padding() {
+			var buttons = document.getElementsByClassName('button');
+			for(i=0; i<buttons.length; i++) {
+				buttons[i].style.cssText+=button_padding_style;
+			}
+		}
+		change_style_button_padding();
+		
+		var button_font_size = (height*18)/685;
+		var button_font_size_style = "font-size:"+button_font_size+"pt;";
+		function change_style_button_font_size() {
+			var buttons = document.getElementsByClassName('button');
+			for(i=0; i<buttons.length; i++) {
+				buttons[i].style.cssText+=button_font_size_style;
+			}
+		}
+		change_style_button_font_size();
+		
+		var h1_font_size = (height*24)/685;
+		var h1_font_size_style = "font-size:"+h1_font_size+"pt;";
+		function change_style_h1_font_size() {
+			var headings_one = document.getElementsByTagName('h1');
+			for(i=0; i<headings_one.length; i++) {
+				headings_one[i].style.cssText+=h1_font_size_style;
+			}
+		}
+		change_style_h1_font_size();
+		
+		var warning_small_font_size = (height*16)/685;
+		var warning_small_font_size_style = "font-size:"+warning_small_font_size+"pt;";
+		document.getElementById("warning_small").style.cssText+=warning_small_font_size_style;
+		
+		var warning_small_bottom = (height*0)/685;
+		var warning_small_bottom_style = "bottom:"+warning_small_bottom+"%;";
+		document.getElementById("warning_small").style.cssText+=warning_small_bottom_style;
+		
+	</script>
+</html>
