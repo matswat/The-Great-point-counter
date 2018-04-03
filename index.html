@@ -2,8 +2,8 @@
 
 <html>
 	<head
-		<meta name="author" content="Mateusz Oleksiak, mat_ole@interia.pl">
-		<meta name="copyright"content="Mateusz Oleksiak">
+		<meta name="author" content="Mateusz Oleksiak mat_ole@interia.pl">
+		<meta name="copyright"content="Mateusz Oleksiak 2018">
 		<meta name="language" content="EN">
 		<meta name="description" content="Online point counter (scoreboard)">
 		<meta name="keywords" content="licznik,licznik punktow,tablica wynikow,counter,points,scoreboard,calculator">
@@ -158,8 +158,10 @@
 				text-align: center;
 			}
 			
-			.inner_placer div{ 
+			<!--Left for debugging-->
+			.inner_placer div { 
 			}
+			
 
 			#player1 {
 				margin: 0 auto;
@@ -210,9 +212,9 @@
 			}
 			
 			img {
-				width: 30%;
+				width: 40%;
 				height: auto;
-				margin: 10px;
+				margin: 5%;
 			}
 			
 			#header {
@@ -273,8 +275,11 @@
 		var div_player_radius_style = "border-radius:"+div_player_radius+"px;";
 		document.getElementById("player1").style.cssText+=div_player_radius_style;
 		document.getElementById("player2").style.cssText+=div_player_radius_style;
+		var div_player_padding_style = "padding:"+div_player_radius+"px;";
+		document.getElementById("player1").style.cssText+=div_player_padding_style;
+		document.getElementById("player2").style.cssText+=div_player_padding_style;
 		
-		/*
+		/* Left for debugging
 		var div_player_height = (height*430)/685;
 		var div_player_height_style = "height:"+div_player_height+"px;";
 		document.getElementById("player1").style.cssText+=div_player_height_style;
