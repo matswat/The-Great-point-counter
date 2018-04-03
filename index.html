@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 	<head
 		<meta name="author" content="Mateusz Oleksiak, mat_ole@interia.pl">
@@ -7,7 +8,6 @@
 		<meta name="description" content="Online point counter (scoreboard)">
 		<meta name="keywords" content="licznik,licznik punktow,tablica wynikow,counter,points,scoreboard,calculator">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		
 		<title>The Great point counter by Mateusz</title>
 		
 		<!--Get screen size to enable dynamic positioning and styling of elements-->
@@ -19,9 +19,9 @@
 			<!-- console.log("width="+width+", height="+height); -->
 		</script>
 		
-		<!--Counter mechanics-->
+		<!--Counter logic-->
 		<script>
-			var point_limit = 99;
+			var point_limit = 1;
 			var point_limit_warning_text = "Maximum point limit is "+point_limit+"!";
 			var point_limit_warning_box_width = (width*500)/1280;
 			var point_limit_warning_box_height = (height*150)/685;
@@ -125,6 +125,11 @@
 		</script>
 
 		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
 			body {
 				background-image: url('background.jpeg');
 				background-repeat: no-repeat;
@@ -132,23 +137,22 @@
 				background-size: cover;
 				background-position: center center;
 				background-color: black;
-				margin: 5% 0 5% 0;
+				margin: 5% 20% 5% 20%;
 				padding: 0;
 			}
 			
-			#parent {
-				position: relative;
-				width: 60%;
-				border: 0px solid green;
-				position: relative;
-				margin: auto;
-			}
-			
-			#player1 {
-				position: absolute;
+			#content {
+				margin: 0 auto;
 				text-align: center;
-				left: 0;
-				width: 40%;
+				width: 100%;
+				border: 2px solid red;
+				background-color: white;
+			}
+
+			#player1 {
+				margin: 0 auto;
+				text-align: center;
+				width: 80%;
 				border: 2px solid red;
 				box-shadow: 0px 0px 30px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255, 255, 255, 1);
 				padding: 10px; 
@@ -156,10 +160,9 @@
 			}
 			
 			#player2 {
-				position: absolute;
+				margin: 0 auto;
 				text-align: center;
-				right: 0;
-				width: 40%;
+				width: 80%;
 				border-radius: 25px;
 				border: 2px solid blue;
 				box-shadow: 0px 0px 30px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255, 255, 255, 1);
@@ -172,12 +175,12 @@
 				text-align: center;
 				font-family: Sans-serif;
 				text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
+				margin: 0;
+				padding: 0; 
 			}
 			
 			h1.warning {
-				position: absolute;
 				text-align: center;
-				width: 100%;
 				color: red;
 				font-family: Sans-serif;
 				text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
@@ -199,26 +202,53 @@
 				height: auto;
 				margin: 10px;
 			}
+			
+			#header {
+				clear: both;
+				text-align: center;
+			}
+			
+			#left {
+				float: left;
+				width: 50%;
+			}
+			
+			#right {
+				float: left;
+				width: 50%;
+			}
+			
+			#footer {
+				clear: both;
+				text-align: center;
+			}
+
+			
 		</style>
-		
 	</head>
 	
 	<body>
-		<div id="parent">
-		<h1>The Great point counter by Mateusz</h1>
+	<div id="header"><h1>The Great point counter by Mateusz</h1></div>
+	<div id="content">
+		<div id="left">
 			<div id="player1">
 				<p id="pointsplayer1"><img src='0.png'></p>
 				<button class="button" onclick="add_point(1)">+1</button><button class="button" onclick="remove_point(1)">-1</button>
 				<p><button class="button" onclick="reset_points(1)">Reset</button></p>
 			</div>
+		</div>
+		<div id="right">
 			<div id="player2">
 				<p id="pointsplayer2"><img src='0.png'></p>
 				<button class="button" onclick="add_point(2)">+1</button><button class="button" onclick="remove_point(2)">-1</button>
 				<p><button class="button" onclick="reset_points(2)">Reset</button></p>
 			</div>
 		</div>
+	</div>
+	<div id="footer">
 		<h1 class="warning" id="warning"></h1>
-		<h1 class="warning" id="warning_small" style="color:white; text-shadow:0 0 10px white;"><center><p id="max_points">xxx</p></center></h1>
+		<h1 class="warning" id="warning_small" style="color:white; text-shadow:0 0 10px white;"><p id="max_points">Maximum point limit is ...</p></h1>
+	</div>
 	</body>
 	
 	<!--Dynamic positioning and styling of elements-->
@@ -229,6 +259,8 @@
 		var div_player_radius_style = "border-radius:"+div_player_radius+"px;";
 		document.getElementById("player1").style.cssText+=div_player_radius_style;
 		document.getElementById("player2").style.cssText+=div_player_radius_style;
+		
+		/*
 		var div_player_height = (height*430)/685;
 		var div_player_height_style = "height:"+div_player_height+"px;";
 		document.getElementById("player1").style.cssText+=div_player_height_style;
@@ -237,6 +269,7 @@
 		var div_player_top_style = "top:"+div_player_top+"px;";
 		document.getElementById("player1").style.cssText+=div_player_top_style;
 		document.getElementById("player2").style.cssText+=div_player_top_style;
+		*/
 		
 		var button_padding_1 = (height*15)/685;
 		var button_padding_2 = (width*30)/1280;
@@ -272,10 +305,6 @@
 		var warning_small_font_size = (height*16)/685;
 		var warning_small_font_size_style = "font-size:"+warning_small_font_size+"pt;";
 		document.getElementById("warning_small").style.cssText+=warning_small_font_size_style;
-		
-		var warning_small_bottom = (height*0)/685;
-		var warning_small_bottom_style = "bottom:"+warning_small_bottom+"%;";
-		document.getElementById("warning_small").style.cssText+=warning_small_bottom_style;
 		
 	</script>
 </html>
